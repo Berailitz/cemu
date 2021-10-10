@@ -2,6 +2,8 @@ import functools
 import tempfile
 import os
 import sys
+import chardet
+import re
 
 from typing import Callable, Dict, List, Tuple, Any
 
@@ -361,7 +363,13 @@ class CEmuWindow(QMainWindow):
     def loadFile(self, fname, data=None):
 
         if data is None:
-            data = open(fname, 'r').read()
+            binary_data = open(fname, 'rb').read()
+            raw_data = binary_data.decode(chardet.detect(binary_data)['encoding'])
+            data = ''.join([c for c in raw_data if ord(c) < 128])
+
+            pattern = re.compile(';.*\n?$')
+            lines = [pattern.sub('', line) for line in data.splitlines()]
+            data = '\n'.join(lines)
 
         for line in data.splitlines():
             part = line.strip().split()
