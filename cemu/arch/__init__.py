@@ -85,7 +85,7 @@ class Architecture(object):
     def __eq__(self, x):
         if not isinstance(x, Architecture):
             return False
-        return self.name == x.name and self.endianness== x.endianness and self.syntax == x.syntax
+        return self.name == x.name and self.endianness== x.endianness
 
 
 

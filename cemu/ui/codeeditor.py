@@ -78,7 +78,7 @@ class AssemblyView(QTextEdit):
 
             asm = "\n".join(lines[:idx+1])
             code, cnt = assemble(asm, self.root.arch)
-            if len(code) > len(old_code):
+            if code is not None and len(code) > len(old_code):
                 new_code = code[len(old_code):]
                 new_line = " ".join(["%.02x" % x for x in new_code])
                 old_code = code
