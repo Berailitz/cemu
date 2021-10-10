@@ -42,6 +42,7 @@ class MemoryMappingWidget(QDockWidget):
         self.log = self.parentWidget().log
         layout = QVBoxLayout()
         self.__memory_mapping = [
+            MemorySection(".test",  0x00000000, 0x4000, "ALL"),
             MemorySection(".text",  0x00004000, 0x1000, "READ|EXEC"),
             MemorySection(".data",  0x00005000, 0x1000, "READ|WRITE"),
             MemorySection(".stack", 0x00006000, 0x4000, "READ|WRITE"),
