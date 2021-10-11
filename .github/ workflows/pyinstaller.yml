@@ -1,0 +1,29 @@
+name: Package Application with Pyinstaller
+
+on:
+  # Triggers the workflow on push or pull request events but only for the xgz/master branch
+  push:
+    branches: [ xgz/master ]
+  pull_request:
+    branches: [ xgz/master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Package Application
+      uses: JackMcKew/pyinstaller-action-windows@main
+      with:
+        path: src
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: name-of-artifact
+        path: src/dist/windows
