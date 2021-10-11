@@ -3,9 +3,9 @@ name: Package Application with Pyinstaller
 on:
   # Triggers the workflow on push or pull request events but only for the xgz/master branch
   push:
-    branches: [ xgz/master ]
+    branches: [ xgz/master, xgz/dev ]
   pull_request:
-    branches: [ xgz/master ]
+    branches: [ xgz/master, xgz/dev ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -21,9 +21,10 @@ jobs:
     - name: Package Application
       uses: JackMcKew/pyinstaller-action-windows@main
       with:
-        path: src
+        path: .
+        spec: main.spec
 
     - uses: actions/upload-artifact@v2
       with:
-        name: name-of-artifact
+        name: cemu
         path: src/dist/windows
