@@ -1,5 +1,6 @@
 # -*- mode: python ; coding: utf-8 -*-
-
+import distutils.sysconfig
+from pathlib import Path
 
 block_cipher = None
 
@@ -7,7 +8,20 @@ block_cipher = None
 a = Analysis(['main.py'],
              pathex=['.'],
              binaries=[],
-             datas=[('venv\\\\Lib\\\\site-packages\\\\capstone\\\\lib\\\\capstone.dll', 'lib\\\\site-packages'), ('venv\\\\Lib\\\\site-packages\\\\keystone\\\\keystone.dll', 'lib\\\\site-packages\\\\keystone'), ('venv\\\\Lib\\\\site-packages\\\\unicorn\\\\lib\\\\unicorn.dll', 'lib\\\\site-packages'), ('cemu', 'cemu')],
+             datas=[
+                (
+                    str(Path(distutils.sysconfig.get_python_lib(), 'capstone', 'lib', 'capstone.dll')),
+                    str(Path('lib', 'site-packages'))
+                ), (
+                    str(Path(distutils.sysconfig.get_python_lib(), 'keystone', 'keystone.dll')),
+                    str(Path('lib', 'site-packages', 'keystone'))
+                ), (
+                    str(Path(distutils.sysconfig.get_python_lib(), 'unicorn', 'lib', 'unicorn.dll')),
+                    str(Path('lib', 'site-packages'))
+                ), (
+                    'cemu',
+                    'cemu'
+                )],
              hiddenimports=[],
              hookspath=[],
              hooksconfig={},
