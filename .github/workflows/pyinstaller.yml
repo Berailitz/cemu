@@ -1,11 +1,9 @@
 name: Package Application with Pyinstaller
 
 on:
-  # Triggers the workflow on push or pull request events but only for the xgz/master branch
   push:
-    branches: [ xgz/master, xgz/dev ]
+
   pull_request:
-    branches: [ xgz/master, xgz/dev ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -28,3 +26,9 @@ jobs:
       with:
         name: cemu
         path: dist/windows
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: dist/windows/cemu.exe
